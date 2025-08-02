@@ -1578,7 +1578,7 @@ StartTimer:
     ADC #1
     STA FrameDelayCounter
 
-    CMP #$10             ; wait ~32 frames (adjust as needed)
+    CMP #$FF             ; wait ~32 frames (adjust as needed)
     BNE SkipTimerInc     ; not yet time to increment
 
     ; Reset frame delay
@@ -2104,4 +2104,4 @@ sprites:
     .word RESET 
     .word 0
 .segment "CHARS"
-    .incbin "mario.chr"
+    .incbin "CoolRace.chr"
