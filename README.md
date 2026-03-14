@@ -1,2 +1,2 @@
 # Cool-Race
-Racing game for the NES
+A Racing game for the NES made in 6502 assembly.
