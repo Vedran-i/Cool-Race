@@ -511,7 +511,27 @@ ReadB:
   LDA #$F6
   STA $02A5
   JSR movingBG
+    LDA #%00001000       ; Bit 3 set = enable noise channel
+    STA $4015
 
+    ; Configure Noise Channel Envelope
+    LDA #CarEngineSound       ; Volume 4, Envelope disabled, decay rate fast
+                         ; Bit 7 = 0 (disable envelope)
+                         ; Bit 6 = 1 (constant volume)
+                         ; Bit 5-0 = 4 (volume)
+    STA $400C            ; Write to Noise Envelope/Volume register
+
+    ; Configure Noise Frequency
+    LDA #%11111111       ; Frequency index = $23 (higher frequency for sharpness)
+                         ; Bit 7 = 0 (non-looping random noise)
+                         ; Bits 4-0 = $23 (frequency index)
+    STA $400E            ; Write to Noise Period register
+
+    INC CarEngineSound
+
+    ; Restart the length counter
+    LDA #%00001000       ; Load length counter (short duration)
+    STA $400F            ; Writing to $400F also resets envelope and length counter
 
 ReadBDone:        ; handling this button is done
 
